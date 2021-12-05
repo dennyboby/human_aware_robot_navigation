@@ -1,0 +1,8 @@
+# vscode
+.vscode
+
+# ROS files
+build
+devel
+logs
+
