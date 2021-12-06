@@ -9,8 +9,12 @@ from picovoice import Picovoice
 from pvrecorder import PvRecorder
 from freight_navigation.msg import NavIntent
 
+ROOM_MAPPING = [
+    {1 : ['1', 'doctor melissa', 'nurse jack', 'home']},
+    {2 : ['2', 'doctor denny', 'nurse anna', 'cardiology lab']},
+    {3 : ['3', 'doctor nihal', 'nurse andy', 'orthopedics lab']}, 
+]
 intent_inference = None
-
 
 class IntentRecognition(Thread):
     def __init__(
@@ -71,7 +75,10 @@ class IntentRecognition(Thread):
         msg = NavIntent()
         msg.intent = inference.intent
         for _, value in inference.slots.items():
-            msg.goals.append(int(value))
+            for room in ROOM_MAPPING:
+                if value in list(room.values())[0]:
+                    msg.goals.append(list(room.keys())[0])
+                    break
         self.intent_pub.publish(msg)
         return True
 
