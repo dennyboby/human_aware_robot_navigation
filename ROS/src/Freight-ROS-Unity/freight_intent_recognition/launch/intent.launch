@@ -1,0 +1,5 @@
+<launch>
+    <rosparam file="$(find freight_intent_recognition)/config/params.yaml"/>
+
+    <node name="intent_recognition" pkg="freight_intent_recognition" type="intent_recognition.py" output="screen"/>
+</launch>

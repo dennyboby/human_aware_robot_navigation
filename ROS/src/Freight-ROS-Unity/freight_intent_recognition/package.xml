@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>freight_intent_recognition</name>
+  <version>0.0.0</version>
+  <description>The freight_intent_recognition package</description>
+
+  <maintainer email="dboby@wpi.edu">Denny Boby</maintainer>
+
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>roscpp</depend>
+  <depend>rospy</depend>
+  <depend>std_msgs</depend>
+  <depend>freight_navigation</depend>
+
+
+  <!-- The export tag contains other, unspecified, tags -->
+  <export>
+    <!-- Other tools can request additional information be placed here -->
+
+  </export>
+</package>

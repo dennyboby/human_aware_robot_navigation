@@ -1,0 +1,15 @@
+access_key: "ZJevp+FvcZJsUWr2IYqDhsUrW7NmGpMxx//EJQl8lCSRdePVnhNcOg=="
+keyword_file_name: "jarvis_keyword_model.ppn"
+context_file_name: "intent_recognition_model.rhn"
+wake_word_library_name: "" # Name of wake word's dynamic library.
+wake_word_model_name: "" # Name of wake word's model file.
+wake_word_sensivity: 0.5 # Sensitivity for detecting wake word. Each value should be a number within [0, 1]. 
+                         # A higher sensitivity results in fewer misses at the cost of increasing the false alarm rate
+intent_library_name: "" # Name of intent's dynamic library.
+intent_model_name: "" # Name of intent's model file.
+intent_recognition_sensitivity: 0.5 # Inference sensitivity. It should be a number within [0, 1]. 
+                                    # A higher sensitivity value results in fewer misses at the cost of (potentially) increasing the erroneous inference rate.
+require_end_silence: True # If set to `False`, intent recognition does not require an endpoint (chunk of silence) before finishing inference.
+audio_device_index: -1 # Index of input audio device
+output_audio_fle_name: "" # Name of recorded audio for debugging.
+show_audio_devices: False # Show available audio devices
