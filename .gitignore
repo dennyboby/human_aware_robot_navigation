@@ -6,3 +6,6 @@ build
 devel
 logs
 .catkin_tools
+
+Audio Files
+*.mp3
