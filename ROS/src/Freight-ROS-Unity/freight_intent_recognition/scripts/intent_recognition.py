@@ -4,17 +4,26 @@ import rospy
 import rospkg
 import struct
 import wave
+from rospkg import RosPack
+from gtts import gTTS
+from playsound import playsound
 from threading import Thread
 from picovoice import Picovoice
 from pvrecorder import PvRecorder
 from freight_navigation.msg import NavIntent
 
-ROOM_MAPPING = [
+MAPPING = [
     {1 : ['1', 'doctor melissa', 'nurse jack', 'home']},
     {2 : ['2', 'doctor denny', 'nurse anna', 'cardiology lab']},
-    {3 : ['3', 'doctor nihal', 'nurse andy', 'orthopedics lab']}, 
+    {3 : ['3', 'doctor nihal', 'nurse andy', 'orthopedics lab']},
+    {4 : ['time']},
+    {5 : ['date']},
+    {6 : ['who', 'what']},
+    {7 : ['joke']},
+    {8 : ['do', 'help']}
 ]
 intent_inference = None
+package_path = RosPack().get_path('freight_intent_recognition')
 
 class IntentRecognition(Thread):
     def __init__(
@@ -69,15 +78,19 @@ class IntentRecognition(Thread):
             print('}\n')
             intent_inference = inference
         else:
-            print("Didn't understand the command.\n")
+            speech_text = "I didn't understand the command. Could you please repeat again?"
+            print(speech_text)
+            speech_audio = gTTS(text=speech_text, lang='en', slow=False)
+            speech_audio.save(package_path + '/data/cmd_failure.mp3')
+            Thread(target=playsound, args=(package_path + '/data/cmd_failure.mp3',), daemon=True).start()
 
     def pub_intent_msg(self, inference):
         msg = NavIntent()
         msg.intent = inference.intent
         for _, value in inference.slots.items():
-            for room in ROOM_MAPPING:
-                if value in list(room.values())[0]:
-                    msg.goals.append(list(room.keys())[0])
+            for objects in MAPPING:
+                if value in list(objects.values())[0]:
+                    msg.goals.append(list(objects.keys())[0])
                     break
         self.intent_pub.publish(msg)
         return True
@@ -105,7 +118,7 @@ class IntentRecognition(Thread):
                     wav_file.writeframes(struct.pack("h" * len(pcm), *pcm))
 
                 self._picovoice.process(pcm)
-
+                    
                 if intent_inference is not None:
                     self.pub_intent_msg(intent_inference)
                     intent_inference = None
