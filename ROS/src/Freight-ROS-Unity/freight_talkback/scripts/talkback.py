@@ -12,7 +12,7 @@ class Talkback:
     def __init__(self):
         self.package_path = RosPack().get_path('freight_talkback')
         self.intent = None
-        rospy.Subscriber('/navigation_intent', NavIntent, self.callback)
+        rospy.Subscriber('/navigation_goal', NavIntent, self.callback)
 
     def get_joke_string(self):
         return pyjokes.get_joke(language='en', category= 'all')
