@@ -1,0 +1,60 @@
+context:
+  expressions:
+    move:
+      - (please) [go to, enter, move to] room $pv.TwoDigitInteger:dst1
+      - (please) [go to, enter, move to] room $pv.TwoDigitInteger:dst1 (then,
+        and) (then, room) $pv.TwoDigitInteger:dst2
+      - (please) [go to, enter, move to] (the) $room:dst1 (then, and) (then,the)
+        $room:dst2
+      - (please) [go to, enter, move to] (the) $room:dst1
+      - (can you) (please) show me the way to (the) $room:dst1 (and,then)
+        (then,the) $room:dst2
+      - (can you) (please) show me the way to (the) $room:dst1
+      - (can you) (please) show me the way to room $pv.TwoDigitInteger:dst1
+        (and,then) (then, room) $pv.TwoDigitInteger:dst2
+      - (can you) (please) show me the way to room $pv.TwoDigitInteger:dst1
+      - (can you) (please) [guide me, take me] to (the) $room:dst1
+      - (can you) (please) [guide me, take me] to (the) $room:dst1 (and, then)
+        (then, the) $room:dst2
+      - (can you) (please) [guide me, take me] to room $pv.TwoDigitInteger:dst1
+      - (can you) (please) [guide me, take me] to room $pv.TwoDigitInteger:dst1
+        (and, then) (then, room) $pv.TwoDigitInteger:dst2
+      - (can you) (please) [show me, guide me, take me, go to](the) (way)(to)
+        (the) (room, place) (where) $staff:dst1 (is)(currently)(present,
+        stationed)(currently)
+    exit:
+      - (please) go out
+      - (please) return
+      - (please) go back
+      - (please) exit (the room)
+      - (please) leave (the room)
+      - get lost
+      - get out
+    convo:
+      - $convo:cnv (are, created) you
+      - tell me a (another) $convo:cnv
+      - (what is, tell me) the $convo:cnv
+    help:
+      - (do you know) where (I can, can I) (find) $staff:stf1 (is)(stationed)
+      - (can you) tell me where (I can, can I) (find) $staff:stf1 (is)(stationed)
+      - where (is) $staff:stf1 (stationed)
+      - what can you do
+      - how can you help me
+  slots:
+    room:
+      - home
+      - cardiology lab
+      - orthopedics lab
+    staff:
+      - doctor nihal
+      - doctor denny
+      - doctor melissa
+      - nurse anna
+      - nurse jack
+      - nurse andy
+    convo:
+      - joke
+      - time
+      - who
+      - what
+      - date
