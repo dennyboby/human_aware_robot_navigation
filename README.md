@@ -13,10 +13,10 @@ This repository simulates a robot in unity simulation, which understands navigat
   - [4. Output](#4-output)
 
 ## 1. Introduction
-This repo contains the Unity simulation for hospital scenario taken from [Gopher-In-Unity-Simulation](https://github.com/hiro-wpi/Gopher-In-Unity-Simulation) and a freight social robot that can understand human speech and also talk back to humans. The robots main functionality is to understand human speech containing navigation commands, derive human intent from speech like go to which room, go to which person, etc and then execute the following command. More information about working and can be found here #TODO: add link.
+This repo contains the Unity simulation for hospital scenario provided by WPI HiRO Lab [Gopher-In-Unity-Simulation](https://github.com/hiro-wpi/Gopher-In-Unity-Simulation) and a freight social robot that can understand human speech and also talk back to humans. The robots main functionality is to understand human speech containing navigation commands, derive human intent from speech like go to which room, go to which person, etc and then execute the following command. More information about working and can be found here #TODO: add link.
 
 ## 2. Setup
-In order to setup the repo follow the instruction in [INSTALL.md]().
+In order to setup the repo follow the instruction in [SETUP.md](https://github.com/dennyboby/social_robot_navigation/blob/master/SETUP.md).
 
 ## 3. Run
 This section discusses the setup of parameters and running different launch files.
