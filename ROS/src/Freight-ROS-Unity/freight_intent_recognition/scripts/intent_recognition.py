@@ -168,7 +168,7 @@ class LoadParams:
                                         else self.this_pack_path + '/config/' + rospy.get_param("/wake_word_library_name")
         self.porcupine_model_path = None if rospy.get_param("/wake_word_model_name") == "" \
                                         else self.this_pack_path + '/config/' + rospy.get_param("/wake_word_model_name")
-        self.porcupine_sensitivity = float(rospy.get_param("/wake_word_sensivity"))
+        self.porcupine_sensitivity = float(rospy.get_param("/wake_word_sensitivity"))
         self.rhino_library_path = None if rospy.get_param("/intent_library_name") == "" \
                                         else self.this_pack_path + '/config/' + rospy.get_param("/intent_library_name")
         self.rhino_model_path = None if rospy.get_param("/intent_model_name") == "" \

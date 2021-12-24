@@ -1,9 +1,9 @@
-access_key: "ZJevp+FvcZJsUWr2IYqDhsUrW7NmGpMxx//EJQl8lCSRdePVnhNcOg=="
-keyword_file_name: "jarvis_keyword_model.ppn"
-context_file_name: "intent_recognition_model.rhn"
+access_key: "yvD3JwuwwtcJeg/5OOUf3WVkLqq9bSRbOKv8t8d5V+sZLYxMQyuENw==" # The access key generated from https://picovoice.ai/docs/quick-start/console-access-key/
+keyword_file_name: "jarvis_keyword_model.ppn" # Name of the wake word file
+context_file_name: "intent_recognition_model.rhn" # Name of the intent recognition file
 wake_word_library_name: "" # Name of wake word's dynamic library.
 wake_word_model_name: "" # Name of wake word's model file.
-wake_word_sensivity: 0.5 # Sensitivity for detecting wake word. Each value should be a number within [0, 1]. 
+wake_word_sensitivity: 0.5 # Sensitivity for detecting wake word. Each value should be a number within [0, 1]. 
                          # A higher sensitivity results in fewer misses at the cost of increasing the false alarm rate
 intent_library_name: "" # Name of intent's dynamic library.
 intent_model_name: "" # Name of intent's model file.

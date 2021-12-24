@@ -45,13 +45,21 @@ To setup Unity open Unity Hub and follow the instructions below:
 ## 4. ROS Setup
 To setup the ROS part of the repository open a new terminal and follow the instructions below.
 
-    cd catkin_ws/ROS
+    cd catkin_ws/social_robot_navigation/ROS
     sudo apt-get install ros-noetic-catkin python3-catkin-tools
     catkin init
     catkin build
     source devel/setup.bash
 
 Make sure that every new terminal running ROS components is sourced to avoid unable to find package issue.
+In order to symlink python to the python3 version, open a new terminal and follow the instructions below ([link](https://packages.debian.org/sid/main/python-is-python3)).
+
+    sudo apt install python-is-python3
+
+Install the libraries required for the ROS part of the repository.
+
+    cd ..
+    pip install -r requirements.txt
 
 ## 5. PicoVoice Setup
 TODO: Add instruction
