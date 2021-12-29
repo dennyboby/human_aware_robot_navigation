@@ -1,6 +1,8 @@
 # Social Robot Navigation
 This repository simulates a robot in unity simulation, which understands navigation intent from human speech and executes it.
 
+PLEASE MAKE SURE YOU HAVE A STABLE INTERNET CONNECTION WHILE RUNNING THE SIMULATION.
+
 ## Contents
 - Social Robot Navigation
   - [1. Introduction](#1-introduction)

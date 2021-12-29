@@ -62,4 +62,32 @@ Install the libraries required for the ROS part of the repository.
     pip install -r requirements.txt
 
 ## 5. PicoVoice Setup
-TODO: Add instruction
+To setup PicoVoice, go to [picovoice.ai](https://picovoice.ai/), go to [console](https://picovoice.ai/console/)  and create an account. We have already placed our intent detection model, so you do not need to create a new model unless you wish to.
+
+1. First step is to create `AccessKey` which can be done from the `AccessKey` tab. This Access Key is important when you integrate PicoVoice with ROS.
+
+    ![](docs/img/accesskey.png)
+
+2. Now, replace this new Access Key in the `social_robot_navigation/ROS/src/Freight-ROS-Unity/freight_intent_recognition/config/params.yaml` file. Now you are all set, you can now try running the simulation and python scripts by following the other steps in the README.md
+
+    ![](docs/img/configAccesskey.png)
+
+
+If you wish to build your own model for your specific problem, you can refer point 1, then 3 to 7. 
+
+3. Next go to the Rhino Console by clicking on the Rhino Tab. Here you can see various pre-defined templates, but we will work with an Empty Template. You can name the template as you wish but we will name it `Navigation` for our purpose. Open the Navigation Context by clicking on the name `Navigation`. You can refer the Rhino syntax [cheatsheet](https://picovoice.ai/docs/tips/syntax-cheat-sheet/) when you wish to create your own model. You can also refer to the [link](https://github.com/Picovoice) for queries and other information.
+
+4. Click on Import YAML which is at the bottom, and import the YAML file from `docs > model` in github and then try it out by clicking on the Microphone button at the top.
+(If importing fails, you must develop the model again from scratch but fret not, you can refer the YAML file, quick start guide and [cheatsheet](https://picovoice.ai/docs/tips/syntax-cheat-sheet/)).
+
+    ![](docs/img/importYaml.png)
+
+
+5.  Download the model that you made and place it in the `social_robot_navigation/ROS/src/Freight-ROS-Unity/freight_intent_recognition/config` path, and make changes to the `Access Key` in the script.
+
+    ![](docs/img/configAccesskey.png)
+
+6. Now you are all set, you can now try running the simulation and python scripts.
+
+7. You can build upon our model by making suitable changes and then exporting the model by clicking on the `Model` option present on the left and click on `Train` button on the right, you can see that there are various platforms like Linux, Raspberry Pi etc that you can create your model for.
+
