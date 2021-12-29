@@ -62,4 +62,21 @@ This section discusses on how to run the freight talkback. In order to run talkb
     roslaunch freight_talkback talkback.launch
 
 ## 4. Output
- 
+This section discusses the output of the simulation. Once the simulation is running, you can follow the instructions below.
+1. When all the launch files are running you can see the following output on terminal.
+
+    ![](docs/img/running_terminal.png)
+
+2. In order to activate the recognition you need to say the wake word `Jarvis` before any command and following output can be seen in the intent recognition terminal.
+
+    ![](docs/img/wakeword.png)
+
+3. Then you can say any of the following commands and other variations (Initially the robot is spawned in room 1 so commands instructing it to go to the same room won't work).
+
+        Please guide me to cardiology lab.  # This makes the robot move to cardiology lab which is mapped to room 2.
+        Go to room 3 then room 1  # This makes the robot first got to room 3 then room 1.
+        Tell me a joke.  # Robot says a joke.
+        What's the date?  # Robot says the current date.
+        What's the time?  # Robot says the current time.
+
+4. If it's a navigation based command the you will be able to see the robot moving in Unity simulation. If the command is conversation based then the computer speakers will speak back the necessary answer.
