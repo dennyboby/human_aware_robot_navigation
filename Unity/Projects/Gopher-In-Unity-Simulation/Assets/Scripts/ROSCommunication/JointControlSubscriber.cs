@@ -7,40 +7,31 @@ using Unity.Robotics.ROSTCPConnector;
 using Unity.Robotics.ROSTCPConnector.ROSGeometry;
 using RosMessageTypes.Std;
 
-
+/// <summary>
+///     This script subscribes joints' control commands.
+/// </summary>
 public class JointControlSubscriber : MonoBehaviour
 {
     // ROS Connector
     private ROSConnection ros;
 
     // Variables required for ROS communication
-    public string joint1ControllerTopicName = "joint_1_position_controller/command";
-    public string joint2ControllerTopicName = "joint_2_position_controller/command";
-    public string joint3ControllerTopicName = "joint_3_position_controller/command";
-    public string joint4ControllerTopicName = "joint_4_position_controller/command";
-    public string joint5ControllerTopicName = "joint_5_position_controller/command";
-    public string joint6ControllerTopicName = "joint_6_position_controller/command";
-    public string joint7ControllerTopicName = "joint_7_position_controller/command";
+    public string joint1ControllerTopicName = "j1_pos_cmd";
+    public string joint2ControllerTopicName = "j2_pos_cmd";
+    public string joint3ControllerTopicName = "j3_pos_cmd";
+    public string joint4ControllerTopicName = "j4_pos_cmd";
+    public string joint5ControllerTopicName = "j5_pos_cmd";
+    public string joint6ControllerTopicName = "j6_pos_cmd";
+    public string joint7ControllerTopicName = "j7_pos_cmd";
     
-    // Robot object
-    public GameObject robot;
-    // Articulation Bodies
-    public float[] homePosition = {0f, 0f, 0f, 0f, 0f, 0f, 0f};
-    private ArticulationBody[] articulationChain;
+    // Robot controller
+    public ArticulationJointController jointController;
 
     // Start is called before the first frame update
     void Start()
     {
         // Get ROS connection static instance
-        ros = ROSConnection.instance;
-
-        // Get joints
-        articulationChain = robot.GetComponentsInChildren<ArticulationBody>();
-        articulationChain = articulationChain.Where(joint => joint.jointType 
-                                                    != ArticulationJointType.FixedJoint).ToArray();
-
-        // Initialize robot position
-        HomeRobot();
+        ros = ROSConnection.GetOrCreateInstance();
 
         // Subscribers
         ros.Subscribe<Float64Msg>(joint1ControllerTopicName, moveJoint1);
@@ -57,55 +48,38 @@ public class JointControlSubscriber : MonoBehaviour
     {
     }
 
-    public void HomeRobot()
-    {
-        for (int i = 0; i < homePosition.Length; ++i)
-            if (articulationChain[i].xDrive.target != homePosition[i])
-            {
-                moveJoint(i, homePosition[i]);
-            }
-    }
-
-    // Callback functions
-    public void moveJoint(int jointNum, float target)
-    {
-        ArticulationDrive drive = articulationChain[jointNum].xDrive;
-        drive.target = target;
-        articulationChain[jointNum].xDrive = drive;
-    }
-
     private void moveJoint1(Float64Msg target)
     {
-        moveJoint(0, (float)target.data);
+        jointController.SetJointTarget(0, (float)target.data);
     }
 
     private void moveJoint2(Float64Msg target)
     {
-        moveJoint(1, (float)target.data);
+        jointController.SetJointTarget(1, (float)target.data);
     }
 
     private void moveJoint3(Float64Msg target)
     {
-        moveJoint(2, (float)target.data);
+        jointController.SetJointTarget(2, (float)target.data);
     }
 
     private void moveJoint4(Float64Msg target)
     {
-        moveJoint(3, (float)target.data);
+        jointController.SetJointTarget(3, (float)target.data);
     }
 
     private void moveJoint5(Float64Msg target)
     {
-        moveJoint(4, (float)target.data);
+        jointController.SetJointTarget(4, (float)target.data);
     }
 
     private void moveJoint6(Float64Msg target)
     {
-        moveJoint(5, (float)target.data);
+        jointController.SetJointTarget(5, (float)target.data);
     }
 
     private void moveJoint7(Float64Msg target)
     {
-        moveJoint(6, (float)target.data);
+        jointController.SetJointTarget(6, (float)target.data);
     }
 }

@@ -1,74 +1,75 @@
 using System.IO;
+using System.Linq;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataRecorder : MonoBehaviour
-{
+
+public class GopherDataRecorder : MonoBehaviour
+{   
+    // Robot
     public GameObject robot;
+    // sensor
     private StateReader stateReader;
     private LaserSocial laser;
     private CollisionReader collisionReader;
     private int collisionStorageIndex;
 
-    public float recordRate = 10;
-    public bool updateData;
-    private bool isRecording;
+    // Recorder
+    public float updateRate = 10;
+    public bool isRecording;
     public float[] states;
     public string[] collisions;
-    public float[] task;
 
+    // CSV writter
     private TextWriter stateTextWriter;
     private TextWriter collisionTextWriter;
-
-    private float twoPI;
 
     void Start()
     {
         // Initialization
         states = new float[18];
         collisions = new string[2];
-        task = new float[12]; 
         isRecording = false;
-        updateData = false;
-        if (robot != null)
-            setRobot(robot);
+        
+        setRobot(robot);
 
-        // Constant
-        twoPI = 2 * Mathf.PI;
-
-        InvokeRepeating("RecordData", 1f, 1/recordRate);
+        InvokeRepeating("UpdateData", 1f, 1/updateRate);
     }
 
     void Update()
-    {
-    }
+    {}
 
     public void setRobot(GameObject robot)
     {
+        if (robot == null)
+            return;
+
+        // Get sensors
         this.robot = robot;
         stateReader = robot.GetComponentInChildren<StateReader>();
         laser = robot.GetComponentInChildren<LaserSocial>();
         collisionReader = robot.GetComponentInChildren<CollisionReader>();
         collisionStorageIndex = 0;
         
+        // Initialization
         states = new float[18];
         collisions = new string[2];
-        task = new float[12]; 
 
         isRecording = false;
-        updateData = false;
     }
 
-    public void StartRecording(string indexNumber)
+    public void StartRecording(string fileName)
     {
+        if (isRecording) return;
         isRecording = true;
-
+        
+        // Create writer to write csv files
         string parentFolder = Application.dataPath + "/Data";
         if (!Directory.Exists(parentFolder))
             Directory.CreateDirectory(parentFolder); 
-        string name = parentFolder + "/" + indexNumber + 
-                      " " + System.DateTime.Now.ToString("MM-dd HH-mm-ss");
+        string name = parentFolder + "/" + fileName;
 
         stateTextWriter = new StreamWriter(name + " state.csv", false);
         collisionTextWriter = new StreamWriter(name + " collision.csv", false);
@@ -76,20 +77,22 @@ public class DataRecorder : MonoBehaviour
 
     public void StopRecording()
     {
+        if (!isRecording) return;
+        isRecording = false;
+
+        // stop writers
         stateTextWriter.Close();
         collisionTextWriter.Close();
-        isRecording = false;
     }
 
-    private void RecordData()
+    private void UpdateData()
     {
         if (robot == null)
         {
             states = new float[18];
             collisions = new string[2];
-        }
-        if(!isRecording && !updateData)
             return;
+        }
         
         // Record state
         // t
@@ -120,8 +123,11 @@ public class DataRecorder : MonoBehaviour
         states[17] = -stateReader.velocities[21];
 
         // write to csv
+        
         if (isRecording)
-            stateTextWriter.WriteLine(ArrayToCSVLine(states));
+        {
+            stateTextWriter.WriteLine(ArrayToCSVLine<float>(states));  
+        }
 
         // Record collision
         if (collisionStorageIndex != collisionReader.storageIndex)
@@ -134,39 +140,37 @@ public class DataRecorder : MonoBehaviour
 
             // write to csv
             if (isRecording)
+            {
                 collisionTextWriter.WriteLine(string.Format("{0:0.000}", states[0]) + "," + 
                                               string.Format("{0:0.000}", states[1]) + "," + 
                                               string.Format("{0:0.000}", states[2]) + "," + 
-                                              ArrayToCSVLine(collisions));
+                                              ArrayToCSVLine<string>(collisions));
+            }
         }
     }
 
-    private string ArrayToCSVLine(float[] array)
+    private string ArrayToCSVLine<T>(T[] array)
     {
         string line = "";
-        foreach (float value in array)
+        // Add value to line
+        foreach (T value in array)
         {
-            line += string.Format("{0:0.000}", value) + ",";
+            if (value is float || value is int)
+                line += string.Format("{0:0.000}", value) + ",";
+            else if (value is string)
+                line += value + ",";
         }
-        line.Remove(line.Length - 1);
-        return line;
-    }
-    private string ArrayToCSVLine(string[] array)
-    {
-        string line = "";
-        foreach (string value in array)
-        {
-            line += value + ",";
-        }
+        // Remove "," in the end
         line.Remove(line.Length - 1);
         return line;
     }
 
     private float ToFLUEuler(float angle)
     {
+        float twoPI = 2 * Mathf.PI;
+
         // Change direction
         angle = twoPI - angle;
-
         // Wrap to [-pi to pi]
         angle =  angle % twoPI; 
         // positive remainder, 0 <= angle < 2pi  
@@ -177,14 +181,12 @@ public class DataRecorder : MonoBehaviour
 
     private int GetLaserMinIndex(float[] ranges)
     {
-        int index = 0;
-        float min = 100f;
-        for(int i = 0; i < ranges.Length; ++i)
-            if (ranges[i] != 0f && ranges[i] < min)
-            {
-                min = ranges[i];
-                index = i;
-            }
-        return index;
+        if (ranges.Length == 0) 
+            return 0;
+
+        // Get smallest index of laser scan
+        float minValue = ranges.Min();
+        int minIndex = ranges.ToList().IndexOf(minValue);
+        return minIndex;
     }
 }
