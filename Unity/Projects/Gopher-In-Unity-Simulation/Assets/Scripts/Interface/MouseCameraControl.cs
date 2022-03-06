@@ -8,11 +8,12 @@ using UnityEngine;
 /// </summary>
 public class MouseCameraControl : MonoBehaviour
 {
+    private bool controlEnabled;
     public float mouseSensitivity = 150f;
 
+    public ArticulationJointController jointContoller;
     public ArticulationBody cameraYawJoint;
     public ArticulationBody cameraPitchJoint;
-    public ArticulationJointController jointController;
     public float speed = 1.0f;
 
     private float mouseX;
@@ -32,7 +33,7 @@ public class MouseCameraControl : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
+        controlEnabled = false;
         
         yawOffsetDeg = yawOffset * Mathf.Rad2Deg;
         pitchOffsetDeg = pitchOffset * Mathf.Rad2Deg;
@@ -43,9 +44,29 @@ public class MouseCameraControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        mouseX = Input.GetAxis("Mouse X");
-        mouseY = Input.GetAxis("Mouse Y");
+        // Switch control on/off
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            controlEnabled = !controlEnabled;
+            if (controlEnabled)
+                Cursor.lockState = CursorLockMode.Locked;
+            else
+                Cursor.lockState = CursorLockMode.Confined;
+        }
 
+        // Get input from mouse
+        if (controlEnabled)
+        {
+            mouseX = Input.GetAxis("Mouse X");
+            mouseY = Input.GetAxis("Mouse Y");
+        }
+        else
+        {
+            mouseX = 0f;
+            mouseY = 0f;
+        }
+
+        // Home robot
         if (Input.GetMouseButtonDown(2))
             HomeCameraJoints();
     }
@@ -64,8 +85,8 @@ public class MouseCameraControl : MonoBehaviour
         pitchRotation = Mathf.Clamp(pitchRotation, 
                                     pitchOffsetDeg-angleLimit, pitchOffsetDeg+angleLimit);
         
-        jointController.SetJointTarget(cameraYawJoint, yawRotation, speed);
-        jointController.SetJointTarget(cameraPitchJoint, pitchRotation, speed);
+        jointContoller.SetJointTargetStep(cameraYawJoint, yawRotation*Mathf.Deg2Rad, speed);
+        jointContoller.SetJointTargetStep(cameraPitchJoint, pitchRotation*Mathf.Deg2Rad, speed);
     }
 
     public void HomeCameraJoints()
@@ -78,13 +99,13 @@ public class MouseCameraControl : MonoBehaviour
     }
     private bool HomeCameraAndCheck()
     {
-        bool yawHomed = cameraYawJoint.xDrive.target == yawOffsetDeg;
-        bool pitchHomed = cameraPitchJoint.xDrive.target == pitchOffsetDeg;
+        bool yawHomed = Mathf.Abs(cameraYawJoint.xDrive.target - yawOffsetDeg) < 0.001;
+        bool pitchHomed = Mathf.Abs(cameraPitchJoint.xDrive.target - pitchOffsetDeg) < 0.001;
 
         if (!yawHomed)
-            jointController.SetJointTarget(cameraYawJoint, yawOffsetDeg, speed);
+            jointContoller.SetJointTargetStep(cameraYawJoint, yawOffset, speed);
         if (!pitchHomed)
-            jointController.SetJointTarget(cameraPitchJoint, pitchOffsetDeg, speed);
+            jointContoller.SetJointTargetStep(cameraPitchJoint, pitchOffset, speed);
         if (yawHomed && pitchHomed)
             return true;
         return false;

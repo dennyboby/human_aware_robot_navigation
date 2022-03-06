@@ -4,15 +4,17 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-///     This script allows robot joints to be 
-///     controlled and initialized.
+///     This script allows robot joints to be controlled with 
+///     SetJointTarget(), SetJointTargetStep(), SetJointSpeedStep().
+///     It also provides joint pose intializaiton.
 /// </summary>
 public class ArticulationJointController : MonoBehaviour
 {
     // Robot object
     public GameObject jointRoot;
+    public int numJoint = 7;
 
-    public float jointSpeed = 1f; 
+    public float jointMaxSpeed = 1f; 
     
     // Articulation Bodies
     public float[] homePosition = {0f, 0f, 0f, 0f, 0f, 0f, 0f};
@@ -24,7 +26,7 @@ public class ArticulationJointController : MonoBehaviour
         articulationChain = jointRoot.GetComponentsInChildren<ArticulationBody>();
         articulationChain = articulationChain.Where(joint => joint.jointType 
                                                     != ArticulationJointType.FixedJoint).ToArray();
-
+        articulationChain = articulationChain.Take(numJoint).ToArray();
         HomeJoints();
     }
 
@@ -45,9 +47,10 @@ public class ArticulationJointController : MonoBehaviour
         int count = 0;
         for (int i = 0; i < homePosition.Length; ++i)
         {
-            float targetPosition = homePosition[i] * Mathf.Rad2Deg;
-            if (articulationChain[i].xDrive.target != targetPosition)
-                SetJointTarget(i, targetPosition);
+            // prevent conversion error deg->rad
+            float current = articulationChain[i].xDrive.target * Mathf.Deg2Rad;
+            if (Mathf.Abs(current - homePosition[i]) > 0.00001)
+                SetJointTargetStep(i, homePosition[i]);
             else
                 count += 1;
         }
@@ -57,19 +60,52 @@ public class ArticulationJointController : MonoBehaviour
         return false;
     }
 
-    public void SetJointTarget(int jointNum, float target, float speed=0f)
+    public void SetJointTarget(int jointNum, float target)
     {
-        if (speed == 0f)
-            speed = jointSpeed;
-        SetJointTarget(articulationChain[jointNum], target, speed);
+        SetJointTarget(articulationChain[jointNum], target);
+    }
+    public void SetJointTarget(ArticulationBody joint, float target)
+    {
+        if (float.IsNaN(target))
+            return;
+        target = target * Mathf.Rad2Deg;
+        
+        // Get drive
+        ArticulationDrive drive = joint.xDrive;
+
+        // Joint limit
+        if (joint.twistLock == ArticulationDofLock.LimitedMotion)
+        {
+            if (target > drive.upperLimit)
+                target = drive.upperLimit;
+            else if (target < drive.lowerLimit)
+                target = drive.lowerLimit;
+        }
+
+        // Set target
+        drive.target = target;
+        joint.xDrive = drive;
     }
 
-    public void SetJointTarget(ArticulationBody joint, float target, float speed=0f)
+    public void SetJointTargetStep(int jointNum, float target)
     {
-        // If speed not given, set to default speed
-        if (speed == 0f)
-            speed = jointSpeed;
-
+        SetJointTargetStep(articulationChain[jointNum], target, jointMaxSpeed);
+    }
+    public void SetJointTargetStep(int jointNum, float target, float speed)
+    {
+        if (jointNum >= 0 && jointNum < articulationChain.Length)
+            SetJointTargetStep(articulationChain[jointNum], target, speed);
+    }
+    public void SetJointTargetStep(ArticulationBody joint, float target)
+    {
+        SetJointTargetStep(joint, target, jointMaxSpeed);
+    }
+    public void SetJointTargetStep(ArticulationBody joint, float target, float speed)
+    {
+        if (float.IsNaN(target))
+            return;
+        target = target * Mathf.Rad2Deg;
+        
         // Get drive
         ArticulationDrive drive = joint.xDrive;
         float currentTarget = drive.target;
@@ -93,15 +129,69 @@ public class ArticulationJointController : MonoBehaviour
         joint.xDrive = drive;
     }
 
+    public void SetJointSpeedStep(int jointNum)
+    {
+        SetJointSpeedStep(jointNum, jointMaxSpeed);
+    }
+    public void SetJointSpeedStep(int jointNum, float speed)
+    {
+        if (jointNum >= 0 && jointNum < articulationChain.Length)
+            SetJointSpeedStep(articulationChain[jointNum], speed);
+    }
+    public void SetJointSpeedStep(ArticulationBody joint)
+    {
+        SetJointSpeedStep(joint, jointMaxSpeed);
+    }
+    public void SetJointSpeedStep(ArticulationBody joint, float speed)
+    {
+        // Get drive
+        ArticulationDrive drive = joint.xDrive;
+        float currentTarget = drive.target;
+
+        // Speed limit
+        float deltaPosition = speed*Mathf.Rad2Deg * Time.fixedDeltaTime;
+        float target = currentTarget + deltaPosition;
+
+        // Joint limit
+        if (joint.twistLock == ArticulationDofLock.LimitedMotion)
+        {
+            if (target > drive.upperLimit)
+                target = drive.upperLimit;
+            else if (target < drive.lowerLimit)
+                target = drive.lowerLimit;
+        }
+
+        // Set target
+        drive.target = target;
+        joint.xDrive = drive;
+    } 
+
     public void StopJoint(int jointNum)
     {
-        StopJoint(articulationChain[jointNum]);
+        if (jointNum >= 0 && jointNum < articulationChain.Length)
+            StopJoint(articulationChain[jointNum]);
     }
-
     public void StopJoint(ArticulationBody joint)
     {
+        float currPosition =  joint.jointPosition[0] * Mathf.Rad2Deg;
         ArticulationDrive drive = joint.xDrive;
-        drive.target = joint.jointPosition[0];
-        joint.xDrive = drive;
+
+        if (Mathf.Abs(drive.target - currPosition) > 1)
+        {
+            drive.target = currPosition;
+            joint.xDrive = drive;
+        }
+    }
+
+    public float[] GetCurrentJointTargets()
+    {
+        float[] targets = new float[articulationChain.Length];
+        for (int i=0; i < articulationChain.Length; ++i)
+        {
+            targets[i] = articulationChain[i].xDrive.target;
+        }
+
+        targets = targets.Select(r => r * Mathf.Deg2Rad).ToArray();
+        return targets;
     }
 }

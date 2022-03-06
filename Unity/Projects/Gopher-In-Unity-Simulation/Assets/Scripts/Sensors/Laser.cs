@@ -23,14 +23,19 @@ public class Laser : MonoBehaviour
 
     private RaycastHit[] raycastHits;
     public float[] ranges;
+    public float[] directions;
 
     void Start()
     {
+        raycastHits = new RaycastHit[samples];
+        ranges = new float[samples];
+        directions = new float[samples];
+
         // Calculate resolution based on angle limit and number of samples
         angleIncrement = (angleMax - angleMin)/(samples-1);
 
-        ranges = new float[samples];
-        raycastHits = new RaycastHit[samples];
+        for (int i = 0; i < samples; ++i)
+            directions[i] = angleMin + i*angleIncrement;
 
         scanTime = 1f/updateRate;
         if (alwaysOn)
@@ -46,7 +51,7 @@ public class Laser : MonoBehaviour
         ranges = new float[samples];
 
         // Cast rays towards diffent directions to find colliders
-        for (int i = 0; i < samples; i++)
+        for (int i = 0; i < samples; ++i)
         {
             Vector3 rotation = GetRayRotation(i) * laserLink.transform.forward;
             // Check if hit colliders within distance
@@ -65,9 +70,10 @@ public class Laser : MonoBehaviour
         }
     }
 
-    private Quaternion GetRayRotation(int sampleInd) {
+    private Quaternion GetRayRotation(int sampleInd) 
+    {
         float angle = (angleMin + (angleIncrement * sampleInd)) * Mathf.Rad2Deg;
-        return Quaternion.AngleAxis(angle, laserLink.transform.up);
+        return Quaternion.Euler(new Vector3(0f, angle, 0f));
     }
 
     public float[] GetCurrentScanRanges() 

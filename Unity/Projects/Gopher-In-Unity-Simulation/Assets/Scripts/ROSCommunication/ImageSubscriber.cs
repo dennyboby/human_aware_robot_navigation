@@ -5,6 +5,10 @@ using UnityEngine;
 using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.Sensor;
 
+/// <summary>
+///     This script subscribes and display an image
+///     sent from ROS.
+/// </summary>
 public class ImageSubscriber : MonoBehaviour
 {
     // ROS Connector
@@ -23,7 +27,7 @@ public class ImageSubscriber : MonoBehaviour
     void Start()
     {
         // Get ROS connection static instance
-        ros = ROSConnection.instance;
+        ros = ROSConnection.GetOrCreateInstance();
 
         // Display
         texture2D = new Texture2D(1, 1);

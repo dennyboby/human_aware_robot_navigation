@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Unity.Robotics.Core;
 using Unity.Robotics.ROSTCPConnector;
 using RosMessageTypes.Sensor;
+using RosMessageTypes.Std;
 
 /// <summary>
 ///     This script publishes camera view
@@ -24,7 +26,7 @@ public class ImagePublisher : MonoBehaviour
     
     // Message
     private CompressedImageMsg compressedImage;
-    private string frameID = "camera";
+    private string frameId = "camera";
 
     private Texture2D texture2D;
     private Rect rect;
@@ -32,7 +34,8 @@ public class ImagePublisher : MonoBehaviour
     void Start()
     {
         // Get ROS connection static instance
-        ros = ROSConnection.instance;
+        ros = ROSConnection.GetOrCreateInstance();
+        ros.RegisterPublisher<CompressedImageMsg>(cameraTopicName);
 
         // Initialize renderer
         texture2D = new Texture2D(resolutionWidth, resolutionHeight, TextureFormat.ARGB32, false);
@@ -43,7 +46,8 @@ public class ImagePublisher : MonoBehaviour
         
         // Initialize messages
         compressedImage = new CompressedImageMsg();
-        compressedImage.header.frame_id = frameID;
+        compressedImage.header = new HeaderMsg(Clock.GetCount(), 
+                                               new TimeStamp(Clock.time), frameId);
         compressedImage.format = "jpeg";
 
         // Call back
@@ -54,11 +58,12 @@ public class ImagePublisher : MonoBehaviour
     {
         if (texture2D != null && cameraObject == imageCamera)
         {
-            compressedImage.header.Update();
+            compressedImage.header = new HeaderMsg(Clock.GetCount(), 
+                                                   new TimeStamp(Clock.time), frameId);
             texture2D.ReadPixels(rect, 0, 0);
             compressedImage.data = texture2D.EncodeToJPG(qualityLevel);
 
-            ros.Send(cameraTopicName, compressedImage);
+            ros.Publish(cameraTopicName, compressedImage);
         }
     }
 }

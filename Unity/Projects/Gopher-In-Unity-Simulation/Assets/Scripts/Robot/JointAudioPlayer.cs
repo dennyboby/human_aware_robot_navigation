@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+///     This script attach audio file
+/// </summary>
 public class JointAudioPlayer : MonoBehaviour
 {
     public ArticulationBody[] jointRoots;
@@ -10,7 +13,7 @@ public class JointAudioPlayer : MonoBehaviour
 
     private ArticulationBody[] currentList;
     private ArticulationBody[] allJointsList;
-    private AudioSource jointAudio;
+    private AudioSource[] jointAudios;
 
     public float lowerFilter = 0.5f;
 
@@ -22,7 +25,6 @@ public class JointAudioPlayer : MonoBehaviour
     public float minimumPitch = 0.0f;
     public float maximumPitch = 1.0f;
     
-    // Start is called before the first frame update
     void Start()
     {
         foreach (ArticulationBody jointRoot in jointRoots)
@@ -30,13 +32,16 @@ public class JointAudioPlayer : MonoBehaviour
             currentList = jointRoot.GetComponentsInChildren<ArticulationBody>();
             currentList = currentList.Where(joint => joint.jointType 
                           != ArticulationJointType.FixedJoint).ToArray();
+            // Add current list of joints to the all-joint list
             AddToJointList(currentList);
         }
         
         // Initialize audio sourse component for all joints
-        foreach (ArticulationBody joint in allJointsList)
+        jointAudios = new AudioSource[allJointsList.Length];
+        for (int i=0; i<allJointsList.Length; ++i)
         {
-            jointAudio = joint.gameObject.AddComponent<AudioSource>();
+            AudioSource jointAudio;
+            jointAudio = gameObject.AddComponent<AudioSource>();
             jointAudio.clip = audioClip;
             jointAudio.loop = true;
             jointAudio.volume = 0f;
@@ -46,17 +51,17 @@ public class JointAudioPlayer : MonoBehaviour
                 jointAudio.pitch = minimumPitch;
 
             jointAudio.Play();
+            jointAudios[i] = jointAudio;
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
-        foreach (ArticulationBody joint in allJointsList)
+        for (int i=0; i<allJointsList.Length; ++i)
         {
             // Get joint audio component
-            jointAudio = joint.gameObject.GetComponent<AudioSource>();
-            float speed = Mathf.Abs(joint.jointVelocity[0]);
+            AudioSource jointAudio = jointAudios[i];
+            float speed = Mathf.Abs(allJointsList[i].jointVelocity[0]);
 
             // Gradually in and fade audio
             if (speed < lowerFilter && jointAudio.volume != 0f)
@@ -84,6 +89,7 @@ public class JointAudioPlayer : MonoBehaviour
         }
     }
 
+    // Add a list of joints to all-joint list
     private void AddToJointList(ArticulationBody[] newList)
     {
         if (allJointsList == null)
