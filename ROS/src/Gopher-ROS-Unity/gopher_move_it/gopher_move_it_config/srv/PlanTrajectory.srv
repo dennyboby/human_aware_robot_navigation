@@ -1,0 +1,4 @@
+Joints joints
+geometry_msgs/Pose target
+---
+moveit_msgs/RobotTrajectory trajectory
