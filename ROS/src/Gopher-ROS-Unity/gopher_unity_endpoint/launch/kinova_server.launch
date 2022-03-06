@@ -1,0 +1,55 @@
+<launch>
+
+  <!-- Arguments -->
+  <arg name="tcp_ip" default="192.168.1.124"/>
+  <arg name="tcp_port" default="10000"/>
+
+  <arg name="robot_name" default="kinova"/>
+
+  <!-- Connection -->
+  <node name="server_endpoint" pkg="ros_tcp_endpoint" type="default_server_endpoint.py" 
+        args="--wait" output="screen" respawn="true">
+    <param name="tcp_ip" type="string" value="$(arg tcp_ip)"/>
+    <param name="tcp_port" type="int" value="$(arg tcp_port)"/>
+  </node>
+
+  <!-- Load robot description -->
+  <param name ="/use_sim_time" value="true"/>
+  <group ns="$(arg robot_name)">
+    <arg name="with_arms" default="false"/>
+    <param name="robot_description" 
+           command="$(find xacro)/xacro
+                    $(find gopher_description)/robots/gen3_robotiq_2f_85.xacro
+                    robot_name:=$(arg robot_name)" />
+
+    <!-- Load MoveIt! -->
+    <include file="$(find gopher_move_it_config)/launch/kinova_move_it.launch">
+      <arg name="dof" value="7"/>
+      <arg name="prefix" value="$(arg robot_name)/"/>
+    </include>
+    <!-- moveit interface service -->
+    <node name="plan_trajectory" pkg="gopher_move_it_config" type="plan_trajectory.py" 
+          args="--wait" output="screen">
+    </node>
+
+    <!-- Start robot state publisher -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher"
+        respawn="false" output="screen">
+    </node>
+  </group>
+  
+
+  <!-- Transform compressed image to raw image in order to view it in Rviz
+  <node name="main_cam_republish" type="republish" pkg="image_transport" output="screen" 
+        args="compressed in:=/main_cam/color/image_raw raw out:=/main_cam/color/image_raw" />
+  <node name="right_arm_cam_republish" type="republish" pkg="image_transport" output="screen" 
+        args="compressed in:=/right_arm_cam/color/image_raw raw out:=/right_arm_cam/color/image_raw" />
+  <node name="left_arm_cam_republish" type="republish" pkg="image_transport" output="screen" 
+        args="compressed in:=/left_arm_cam/color/image_raw raw out:=/left_arm_cam/color/image_raw" />  -->
+
+
+  <!-- Start RViz -->
+  <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/kinova_rviz_config.rviz"/>
+  <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/> 
+
+</launch>
