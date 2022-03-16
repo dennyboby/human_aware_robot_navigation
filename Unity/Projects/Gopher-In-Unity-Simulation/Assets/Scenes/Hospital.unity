@@ -2485,6 +2485,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3928315738651084602, guid: 32167ae204a279138a903dbea46be490, type: 3}
+      propertyPath: samples
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 3928315738651084602, guid: 32167ae204a279138a903dbea46be490, type: 3}
       propertyPath: rangeMax
       value: 15
       objectReference: {fileID: 0}
