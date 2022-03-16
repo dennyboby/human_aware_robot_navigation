@@ -10,6 +10,9 @@ project(gopher_navigation)
 find_package(catkin REQUIRED COMPONENTS
   roscpp
   rospy
+  teb_local_planner
+  gmapping
+  amcl
 )
 
 ## System dependencies are found with CMake's conventions
