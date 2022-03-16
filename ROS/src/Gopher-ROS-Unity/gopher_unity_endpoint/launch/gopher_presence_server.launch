@@ -1,7 +1,7 @@
 <launch>
 
   <!-- Arguments -->
-  <arg name="tcp_ip" default="192.168.1.87"/>
+  <arg name="tcp_ip" default="192.168.1.212"/>
   <arg name="tcp_port" default="10000"/>
 
   <arg name="world_name" default="hospital"/>
@@ -19,8 +19,12 @@
   </node>
 
   <!-- Load map -->
-  <node name="map_server" pkg="map_server" type="map_server" 
+  <!-- <node name="map_server" pkg="map_server" type="map_server" 
         args="$(find gopher_navigation)/maps/$(arg world_name).yaml">
+    <param name="frame_id" value="map" />
+  </node> -->
+  <node name="map_server" pkg="map_server" type="map_server" 
+        args="$(find gopher_navigation)/maps/trial1_map.yaml">
     <param name="frame_id" value="map" />
   </node>
 
