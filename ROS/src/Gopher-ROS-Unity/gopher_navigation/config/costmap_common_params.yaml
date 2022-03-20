@@ -1,4 +1,4 @@
-map_type: costmap
+# map_type: costmap
 
 obstacle_range: 4.0
 raytrace_range: 4.0
