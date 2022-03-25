@@ -1,7 +1,7 @@
 <launch>
 
   <!-- Arguments -->
-  <arg name="tcp_ip" default="192.168.1.87"/>
+  <arg name="tcp_ip" default="130.215.170.238"/>
   <arg name="tcp_port" default="10000"/>
 
   <arg name="world_name" default="hospital_map"/>
