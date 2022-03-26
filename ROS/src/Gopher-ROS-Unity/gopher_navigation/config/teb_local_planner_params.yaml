@@ -20,8 +20,8 @@ TebLocalPlannerROS:
     
  # Robot
          
- max_vel_x: 1.5
- max_vel_x_backwards: 0.2
+ max_vel_x: 2
+ max_vel_x_backwards: 0.03
  max_vel_y: 0.0
  max_vel_theta: 0.5
  acc_lim_x: 1.0
@@ -40,10 +40,10 @@ TebLocalPlannerROS:
     
  # Obstacles
     
- min_obstacle_dist: 0.55 # This value must also include our robot radius, since footprint_model is set to "point". # was 0.25
- inflation_dist: 0.6
+ min_obstacle_dist: 0.4 # This value must also include our robot radius, since footprint_model is set to "point". # was 0.25
+ inflation_dist: 0.45
  include_costmap_obstacles: True
- costmap_obstacles_behind_robot_dist: 1.8 #was 1.5
+ costmap_obstacles_behind_robot_dist: 1.5
  obstacle_poses_affected: 15
 
  dynamic_obstacle_inflation_dist: 0.6
@@ -71,7 +71,7 @@ TebLocalPlannerROS:
  weight_optimaltime: 1 # must be > 0
  weight_shortest_path: 0
  weight_obstacle: 50
- weight_inflation: 0.2
+ weight_inflation: 0.1
  weight_dynamic_obstacle: 10
  weight_dynamic_obstacle_inflation: 0.2
  weight_viapoint: 1
@@ -79,7 +79,7 @@ TebLocalPlannerROS:
 
  # Homotopy Class Planner
 
- enable_homotopy_class_planning: False
+ enable_homotopy_class_planning: True
  enable_multithreading: True
  max_number_classes: 4
  selection_cost_hysteresis: 1.0
