@@ -351,7 +351,7 @@ Visualization Manager:
       Axes Radius: 0.009999999776482582
       Class: rviz/PoseArray
       Color: 255; 25; 0
-      Enabled: true
+      Enabled: false
       Head Length: 0.07000000029802322
       Head Radius: 0.029999999329447746
       Name: PoseArray
@@ -361,7 +361,7 @@ Visualization Manager:
       Shape: Arrow (Flat)
       Topic: /gopher_presence/particlecloud
       Unreliable: false
-      Value: true
+      Value: false
     - Class: rviz/Camera
       Enabled: false
       Image Rendering: background and overlay
@@ -373,6 +373,7 @@ Visualization Manager:
       Unreliable: false
       Value: false
       Visibility:
+        "": true
         Grid: true
         LaserScan: true
         Map: true
@@ -382,6 +383,15 @@ Visualization Manager:
         TF: true
         Value: false
       Zoom Factor: 1
+    - Alpha: 1
+      Class: rviz/Polygon
+      Color: 25; 255; 0
+      Enabled: true
+      Name: Polygon
+      Queue Size: 10
+      Topic: /gopher_presence/move_base/local_costmap/footprint
+      Unreliable: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 48; 48; 48
@@ -410,7 +420,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 31.446205139160156
+      Distance: 3.015493631362915
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -418,17 +428,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: -9.803631782531738
-        Y: 3.8591012954711914
-        Z: 2.1965675354003906
+        X: -0.8978080153465271
+        Y: 5.915480613708496
+        Z: 1.8744343519210815
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 1.3997966051101685
+      Pitch: 1.5697963237762451
       Target Frame: <Fixed Frame>
-      Yaw: 1.592185378074646
+      Yaw: 1.3921855688095093
     Saved: ~
 Window Geometry:
   Camera:
