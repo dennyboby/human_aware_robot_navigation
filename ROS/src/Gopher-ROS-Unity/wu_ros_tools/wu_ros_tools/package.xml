@@ -1,0 +1,19 @@
+<package format="2">
+  <name>wu_ros_tools</name>
+  <version>0.2.6</version>
+  <description>A collection of tools for making a variety of generic ROS-related tasks easier.</description>
+  <author>David V. Lu!!</author>
+  <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/wu_ros_tools</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>easy_markers</exec_depend>
+  <exec_depend>joy_listener</exec_depend>
+  <exec_depend>kalman_filter</exec_depend>
+  <exec_depend>rosbaglive</exec_depend>
+
+  <export>
+    <metapackage/>
+  </export>
+</package>

@@ -1,0 +1,29 @@
+# Node parameters for using the timed path follower as local planner with move base. 
+# For more information about the move base parameters in this file, please see
+#
+#  http://www.ros.org/wiki/move_base
+#
+
+shutdown_costmaps: false
+
+#disable recovery behaviors
+recovery_behavior_enabled: false
+
+#controller frequency should be at least 10 Hz to avoid instability
+controller_frequency: 20.0
+controller_patience: 5.0
+
+#disable oscillation checking
+oscillation_timeout: 0.0
+oscillation_distance: 0.0
+
+#use path follower as the local planner
+base_local_planner: path_executer/PathFollower
+
+#path follower params
+PathFollower:
+    allow_backwards: false #to allow backwards motion when trying to follow a trajectory. default: false
+    xy_goal_tolerance: 0.1 #euclidian goal distance threshold in m. default: 0.1
+    yaw_goal_tolerance: 0.2 #rotational goal distance threshold in rad. default: 0.2
+
+#controller gains and velocity bounds for the path follower can be adjusted using dynamic reconfigure (move_base/PathFollower prefix)

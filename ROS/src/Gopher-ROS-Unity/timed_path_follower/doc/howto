@@ -1,0 +1,6 @@
+to generate Doxygen documentation (www.doxygen.org) for the timed_path_follower package, do:
+--
+$ roscd timed_path_follower
+$ doxygen Doxyfile
+-- 
+and open index.html from doc/html folder
