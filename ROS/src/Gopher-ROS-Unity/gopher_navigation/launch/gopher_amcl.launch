@@ -54,12 +54,12 @@
     <param name="global_costmap/global_frame" value="map" />
     <param name="local_costmap/global_frame" value="map" />
     
-    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
-    <param name="planner_frequency" value="1.0" />
+    <!-- <param name="base_global_planner" value="global_planner/GlobalPlanner" /> -->
+    <param name="planner_frequency" value="0.0" />
     <param name="planner_patience" value="5.0" />
 
     <!-- <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> -->
-    <!-- <param name="base_local_planner" value="dwa_local_planner/DWALocalPlannerROS" /> -->
+    <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
     <param name="controller_frequency" value="5.0" />
     <param name="controller_patience" value="15.0" />
   </node>
