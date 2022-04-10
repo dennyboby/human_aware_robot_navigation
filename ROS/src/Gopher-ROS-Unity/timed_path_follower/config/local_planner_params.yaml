@@ -7,15 +7,17 @@
 shutdown_costmaps: false
 
 #disable recovery behaviors
-recovery_behavior_enabled: false
+recovery_behavior_enabled: false     # was false
 
 #controller frequency should be at least 10 Hz to avoid instability
-controller_frequency: 20.0
+controller_frequency: 10.0
 controller_patience: 5.0
 
 #disable oscillation checking
 oscillation_timeout: 0.0
 oscillation_distance: 0.0
+
+# max_planning_retries: 8
 
 #use path follower as the local planner
 base_local_planner: path_executer/PathFollower
