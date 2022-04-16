@@ -46,18 +46,22 @@
       command="load" subst_value="true"/>
     <rosparam file="$(find gopher_navigation)/config/global_costmap_params.yaml" 
       command="load" subst_value="true"/>
-    <rosparam file="$(find gopher_navigation)/config/teb_local_planner_params.yaml" 
-      command="load"/>
 
     <param name="global_costmap/global_frame" value="map" />
     <param name="local_costmap/global_frame" value="map" />
     
-    <param name="base_global_planner" value="global_planner/GlobalPlanner" />
+    <!-- <rosparam file="$(find gopher_navigation)/config/teb_local_planner_params.yaml" 
+      command="load"/> -->
+    <!-- <param name="base_global_planner" value="global_planner/GlobalPlanner" /> -->
+    <!-- <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> -->
+    
+    <rosparam file="$(find lattice_planner)/config/global_planner_params.yaml" command="load" />
+    <param name="TBPlanner/dynamic_layers_plugin" value="dynamic_social_costmap::SocialLayers" />
+    <rosparam file="$(find timed_path_follower)/config/local_planner_params.yaml" command="load" />
+    
     <param name="planner_frequency" value="1.0" />
     <param name="planner_patience" value="5.0" />
-
-    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
-    <param name="controller_frequency" value="5.0" />
+    <param name="controller_frequency" value="2.0" />
     <param name="controller_patience" value="15.0" />
   </node>
 </launch>
