@@ -49,8 +49,8 @@ public class PeoplePublisher : MonoBehaviour
         {
             name = "person",
             position = publishedTransform.position.To<FLU>(),
-            velocity = new PointMsg(script.speed*Mathf.Sin(orientation[1]*Mathf.Deg2Rad),
-                    script.speed*Mathf.Cos(orientation[1]*Mathf.Deg2Rad),0),
+            velocity = new PointMsg(script.speed*Mathf.Cos(orientation[1]*Mathf.Deg2Rad),
+                    -script.speed*Mathf.Sin(orientation[1]*Mathf.Deg2Rad),0),
             reliability = 1.0,
             tagnames = new string[] { "tag1", "tag2" },
             tags = new string[] { "tag1", "tag2" }
