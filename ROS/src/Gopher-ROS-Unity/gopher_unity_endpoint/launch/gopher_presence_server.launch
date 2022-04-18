@@ -7,8 +7,8 @@
   <arg name="world_name" default="hospital_map"/>
   <arg name="robot_name" default="gopher_presence"/>
 
-  <arg name="pose_x" default="0"/>
-  <arg name="pose_y" default="6"/>
+  <arg name="pose_x" default="6.159779"/>
+  <arg name="pose_y" default="-14.04961"/>
   <arg name="pose_yaw" default="-1.57"/>
 
   <!-- Connection -->
