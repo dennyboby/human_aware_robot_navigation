@@ -11874,7 +11874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7acef0b79454c9b4dae3f8139bc4ba77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RosIPAddress: 192.168.1.87
+  m_RosIPAddress: 192.168.1.212
   m_RosPort: 10000
   m_ConnectOnStart: 1
   m_KeepaliveTime: 1
@@ -23077,7 +23077,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7474932835912625694, guid: 99c60dd584c9e02af870a2c618acc03c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -10.15
+      value: 6.68
       objectReference: {fileID: 0}
     - target: {fileID: 7474932835912625694, guid: 99c60dd584c9e02af870a2c618acc03c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -23108,20 +23108,24 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8035682938053625748, guid: 99c60dd584c9e02af870a2c618acc03c, type: 3}
+      propertyPath: loop
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8035682938053625748, guid: 99c60dd584c9e02af870a2c618acc03c, type: 3}
       propertyPath: targetTrajectory.Array.size
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 8035682938053625748, guid: 99c60dd584c9e02af870a2c618acc03c, type: 3}
       propertyPath: targetTrajectory.Array.data[0].x
-      value: 815939
+      value: 5.815939
       objectReference: {fileID: 0}
     - target: {fileID: 8035682938053625748, guid: 99c60dd584c9e02af870a2c618acc03c, type: 3}
       propertyPath: targetTrajectory.Array.data[0].z
-      value: 66816
+      value: 6.68
       objectReference: {fileID: 0}
     - target: {fileID: 8035682938053625748, guid: 99c60dd584c9e02af870a2c618acc03c, type: 3}
       propertyPath: targetTrajectory.Array.data[1].x
-      value: 815939
+      value: 5.815939
       objectReference: {fileID: 0}
     - target: {fileID: 8035682938053625748, guid: 99c60dd584c9e02af870a2c618acc03c, type: 3}
       propertyPath: targetTrajectory.Array.data[1].z
@@ -23151,9 +23155,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f92d54de20a7cec4ad4178497807c10, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  poseStampedTopicName: people
+  peopleTopicName: people
   publishedTransform: {fileID: 1727555014}
   publishRate: 10
+  script: {fileID: 1727555018}
+--- !u!114 &1727555018 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8035682938053625748, guid: 99c60dd584c9e02af870a2c618acc03c, type: 3}
+  m_PrefabInstance: {fileID: 1727555012}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1727555013}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b177e7583ffabb047bc891ac06af8a7a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1733533668
 PrefabInstance:
   m_ObjectHideFlags: 0
