@@ -1,7 +1,7 @@
 <launch>
 
   <!-- Arguments -->
-  <arg name="tcp_ip" default="130.215.170.238"/>
+  <arg name="tcp_ip" default="192.168.1.87"/>
   <arg name="tcp_port" default="10000"/>
 
   <arg name="world_name" default="hospital_map"/>
@@ -42,6 +42,8 @@
     </include>
   </group>
 
+  <!--- Run constant velocity prediction node -->
+  <node name="constant_velocity_prediction" pkg="people_prediction" type="constant_velocity_prediction" />
 
   <!-- Transform compressed image to raw image in order to view it in Rviz
   <node name="main_cam_republish" type="republish" pkg="image_transport" output="screen" 
