@@ -10,7 +10,6 @@
   <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>easy_markers</exec_depend>
   <exec_depend>kalman_filter</exec_depend>
-  <exec_depend>rosbaglive</exec_depend>
 
   <export>
     <metapackage/>
