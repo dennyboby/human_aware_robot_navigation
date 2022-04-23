@@ -44,13 +44,13 @@ TBPlanner:
     #flags for simplifying the path search - violate optimality but accelerate the search procedure
     easy_deceleration: false #flag for simplified planning of deceleration at the goal. default: false
     easy_turn_at_start: false #flag for simplified planning of turn in place at the start. default: false
-    easy_turn_at_goal: false #flag for simplified planning of turn in place at the goal. default: false
+    easy_turn_at_goal: true #flag for simplified planning of turn in place at the goal. default: false
 
     #motion constraints of the robot:
-    min_vel_x: 0.0 #minimum forward velocity of the robot in meters per second (can be negative). default: 0.0
-    max_vel_x: 0.4 #maximum forward velocity of the robot in meters per second. default: 0.4
-    acceleration_x: 0.8 #forward acceleration in meters per second^2. default: 0.8
-    min_vel_phi: -0.4 #minimum angular velocity of the robot in radians per second (can be negative). default: -0.8
-    max_vel_phi: 0.4 #maximum angular velocity of the robot in radians per second. default: 0.8
-    acceleration_phi: 0.5 #angular acceleration in radians per second^2. default: 0.8
+    min_vel_x: 0.0 # 0.0 #minimum forward velocity of the robot in meters per second (can be negative). default: 0.0
+    max_vel_x: 0.4 # 0.4 #maximum forward velocity of the robot in meters per second. default: 0.4
+    acceleration_x: 0.8 # 0.8 #forward acceleration in meters per second^2. default: 0.8
+    min_vel_phi: -0.4 # -0.4 #minimum angular velocity of the robot in radians per second (can be negative). default: -0.8
+    max_vel_phi: 0.4 # 0.4 #maximum angular velocity of the robot in radians per second. default: 0.8
+    acceleration_phi: 0.5 # 0.5 #angular acceleration in radians per second^2. default: 0.8
 
