@@ -37,4 +37,4 @@ target_link_libraries(
     ${catkin_LIBRARIES}
 )
 
-add_dependencies(${PROJECT_NAME} people_msgs_gencpp ${PROJECT_NAME}_gencfg)
+add_dependencies(${PROJECT_NAME} people_msgs_generate_messages_cpp ${PROJECT_NAME}_gencfg)

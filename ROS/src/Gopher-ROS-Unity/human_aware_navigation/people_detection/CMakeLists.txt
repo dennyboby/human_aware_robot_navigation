@@ -16,7 +16,7 @@ catkin_package()
 
 add_executable(fake_detection src/fake_detection.cpp)
 
-add_dependencies(fake_detection people_msgs_gencpp visualization_msgs_gencpp)
+add_dependencies(fake_detection people_msgs_generate_messages_cpp visualization_msgs_generate_messages_cpp)
 
 target_link_libraries(fake_detection
   ${catkin_LIBRARIES}

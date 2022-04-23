@@ -47,7 +47,6 @@
 #include <tf/transform_datatypes.h>
 #include <nav_core/base_global_planner.h>
 #include <nav_msgs/GetPlan.h>
-#include <kobuki_msgs/BumperEvent.h>
 #include <lattice_planner/tb_lattice.h>
 
 namespace lattice_planner
