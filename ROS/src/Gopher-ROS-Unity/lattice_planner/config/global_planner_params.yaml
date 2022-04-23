@@ -44,7 +44,7 @@ TBPlanner:
     #flags for simplifying the path search - violate optimality but accelerate the search procedure
     easy_deceleration: false #flag for simplified planning of deceleration at the goal. default: false
     easy_turn_at_start: false #flag for simplified planning of turn in place at the start. default: false
-    easy_turn_at_goal: false #flag for simplified planning of turn in place at the goal. default: false
+    easy_turn_at_goal: true #flag for simplified planning of turn in place at the goal. default: false
 
     #motion constraints of the robot:
     min_vel_x: 0.0 # 0.0 #minimum forward velocity of the robot in meters per second (can be negative). default: 0.0

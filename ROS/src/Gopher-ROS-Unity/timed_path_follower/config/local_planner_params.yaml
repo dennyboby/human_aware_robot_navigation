@@ -7,7 +7,7 @@
 shutdown_costmaps: false
 
 #disable recovery behaviors
-recovery_behavior_enabled: false     # was false
+recovery_behavior_enabled: true     # was false
 
 #controller frequency should be at least 10 Hz to avoid instability
 controller_frequency: 10.0
