@@ -11,6 +11,8 @@
   <arg name="pose_y" default="-14.04961"/>
   <arg name="pose_yaw" default="-1.57"/>
 
+  <arg name="evaluation" default="true"/>
+
   <!-- Connection -->
   <node name="server_endpoint" pkg="ros_tcp_endpoint" type="default_server_endpoint.py" 
         args="--wait" output="screen" respawn="true">
@@ -44,6 +46,10 @@
 
   <!--- Run constant velocity prediction node -->
   <node name="constant_velocity_prediction" pkg="people_prediction" type="constant_velocity_prediction" />
+
+  <group if="$(eval evaluation == true)">
+    <node name="social_distance" pkg="gopher_navigation" type="social_distance.py" output="screen" />
+  </group>
 
   <!-- Transform compressed image to raw image in order to view it in Rviz
   <node name="main_cam_republish" type="republish" pkg="image_transport" output="screen" 
