@@ -48,7 +48,8 @@
   <node name="constant_velocity_prediction" pkg="people_prediction" type="constant_velocity_prediction" />
 
   <group if="$(eval evaluation == true)">
-    <node name="social_distance" pkg="gopher_navigation" type="social_distance.py" output="screen" />
+    <node name="social_distance_node" pkg="gopher_navigation" type="social_distance.py" output="screen" />
+    <node name="path_length_node" pkg="gopher_navigation" type="path_length.py" output="screen" />
   </group>
 
   <!-- Transform compressed image to raw image in order to view it in Rviz
