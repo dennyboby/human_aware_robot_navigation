@@ -2511,7 +2511,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3928315738656980303, guid: 32167ae204a279138a903dbea46be490, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14.0487585
+      value: 2.35
       objectReference: {fileID: 0}
     - target: {fileID: 3928315738656980303, guid: 32167ae204a279138a903dbea46be490, type: 3}
       propertyPath: m_LocalPosition.y
@@ -2519,7 +2519,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3928315738656980303, guid: 32167ae204a279138a903dbea46be490, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 6.154504
+      value: -1.66
       objectReference: {fileID: 0}
     - target: {fileID: 3928315738656980303, guid: 32167ae204a279138a903dbea46be490, type: 3}
       propertyPath: m_LocalRotation.w
@@ -11936,7 +11936,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7acef0b79454c9b4dae3f8139bc4ba77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RosIPAddress: 192.168.1.212
+  m_RosIPAddress: 192.168.1.87
   m_RosPort: 10000
   m_ConnectOnStart: 1
   m_KeepaliveTime: 1
