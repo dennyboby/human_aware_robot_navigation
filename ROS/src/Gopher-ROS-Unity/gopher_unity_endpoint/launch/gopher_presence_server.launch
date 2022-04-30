@@ -64,12 +64,10 @@
 
 
   <!-- Start RViz -->
-  <group if="$(eval social == true)">
-    <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_config_social.rviz"/>
-  </group>
-  <group if="$(eval social == false)">
-    <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_config_baseline.rviz"/>
-  </group>
+  <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_config_social.rviz" if="$(arg social)"/>
+
+  <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_config_baseline.rviz" unless="$(arg social)"/>
+
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/> 
 
 </launch>
