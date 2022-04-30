@@ -7,9 +7,9 @@
   <arg name="world_name" default="hospital_map"/>
   <arg name="robot_name" default="gopher_presence"/>
 
-  <arg name="pose_x" default="6.159779"/>
-  <arg name="pose_y" default="-14.04961"/>
-  <arg name="pose_yaw" default="-1.57"/>
+  <arg name="pose_x" default="7.38994"/>
+  <arg name="pose_y" default="-5.761259"/>
+  <arg name="pose_yaw" default="-3.16"/>
 
   <arg name="evaluation" default="true"/>
   <arg name="social" default="true"/>
