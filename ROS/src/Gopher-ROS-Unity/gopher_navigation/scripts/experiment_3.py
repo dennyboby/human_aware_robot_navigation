@@ -20,28 +20,32 @@ class Exp3:
         goal.pose.orientation = quat
         self.pose_pub.publish(goal)
         self.status = False
+        print('Goal Published')
         rospy.sleep(0.2)
 
     def goal_status_cb(self, data):
         status_list = data.status_list
+        print('Callback called.')
         if len(status_list) != 0:
             status = status_list[-1].status
             if (status == 3):
+                print('Goal reached')
                 self.status == True
     
     def navigate(self):
-        point1 = Point(-1.6808, -7.3111, 0.0)
-        quat1 = Quaternion(0.0, 0.0, -0.7147419780269852, 0.6993882361364627)
+        point1 = Point(-1.2590, -2.55271, 0.0)
+        quat1 = Quaternion(0.0, 0.0, -0.702835905578862, 0.7113520154108941)
         self.publish_goal(point1, quat1)
         print('Goal 1 Published')
 
         while not (self.status or rospy.is_shutdown()):
+            print('Status: ', self.status)
             rospy.sleep(0.2)
 
         rospy.sleep(5.0)
 
-        point2 = Point(-1.6808, -7.3111, 0.0)
-        quat2 = Quaternion(0.0, 0.0, -0.7147419780269852, 0.6993882361364627)
+        point2 = Point(-10.714281, -8.329421, 0.0)
+        quat2 = Quaternion(0.0, 0.0, -0.9119776654713311, 0.4102398538434083)
         self.publish_goal(point2, quat2)
         print('Goal 2 Published')
 
@@ -50,8 +54,8 @@ class Exp3:
 
         rospy.sleep(5.0)
 
-        point3 = Point(-1.6808, -7.3111, 0.0)
-        quat3 = Quaternion(0.0, 0.0, -0.7147419780269852, 0.6993882361364627)
+        point3 = Point(7.0304985, -3.261139, 0.0)
+        quat3 = Quaternion(0.0, 0.0, 0.6998626562032497, 0.7142774408114342)
         self.publish_goal(point3, quat3)
         print('Goal 3 Published')
 
