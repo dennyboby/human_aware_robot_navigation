@@ -12,6 +12,7 @@
   <arg name="pose_yaw" default="-1.57"/>
 
   <arg name="evaluation" default="true"/>
+  <arg name="social" default="true"/>
 
   <!-- Connection -->
   <node name="server_endpoint" pkg="ros_tcp_endpoint" type="default_server_endpoint.py" 
@@ -41,6 +42,7 @@
     <param name="amcl/initial_pose_a" value="$(arg pose_yaw)" />
     <include file="$(find gopher_navigation)/launch/gopher_amcl.launch">
       <arg name="robot_name" value="$(arg robot_name)"/>
+      <arg name="social" value="$(arg social)"/>
     </include>
   </group>
 
@@ -62,7 +64,10 @@
 
 
   <!-- Start RViz -->
-  <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_rviz_config.rviz"/>
+  <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_config_social.rviz" if="$(arg social)"/>
+
+  <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_config_baseline.rviz" unless="$(arg social)"/>
+
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/> 
 
 </launch>

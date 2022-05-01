@@ -5,7 +5,6 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /Map1
       Splitter Ratio: 0.45042839646339417
     Tree Height: 763
   - Class: rviz/Selection
@@ -129,18 +128,116 @@ Visualization Manager:
     - Alpha: 1
       Class: rviz/RobotModel
       Collision Enabled: false
-      Enabled: false
+      Enabled: true
       Links:
         All Links Enabled: true
         Expand Joint Details: false
         Expand Link Details: false
         Expand Tree: false
         Link Tree Style: Links in Alphabetic Order
+        gopher_presence/base_camera_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/base_camera_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/base_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/chassis_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopher_presence/estop_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopher_presence/l_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopher_presence/laser_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopher_presence/main_cam_bottom_screw_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/main_cam_color_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/main_cam_color_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/main_cam_depth_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/main_cam_depth_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/main_cam_left_ir_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/main_cam_left_ir_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/main_cam_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopher_presence/main_cam_pitch_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopher_presence/main_cam_right_ir_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/main_cam_right_ir_optical_frame:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+        gopher_presence/main_cam_support:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopher_presence/main_cam_yaw_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopher_presence/r_wheel_link:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
+        gopher_presence/torso:
+          Alpha: 1
+          Show Axes: false
+          Show Trail: false
+          Value: true
       Name: RobotModel
       Robot Description: gopher_presence/robot_description
       TF Prefix: ""
       Update Interval: 0
-      Value: false
+      Value: true
       Visual Enabled: true
     - Alpha: 1
       Autocompute Intensity Bounds: true
@@ -276,12 +373,12 @@ Visualization Manager:
       Unreliable: false
       Value: false
       Visibility:
-        "": true
         Grid: true
         LaserScan: true
         Map: true
         MarkerArray: true
         Path: true
+        PointCloud2: true
         Polygon: true
         Pose: true
         PoseArray: true
@@ -378,7 +475,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 7.312525749206543
+      Distance: 11.17740249633789
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1

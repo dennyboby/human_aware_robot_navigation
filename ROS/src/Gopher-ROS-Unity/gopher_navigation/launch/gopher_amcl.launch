@@ -9,6 +9,7 @@
 
   <arg name="cmd_vel" default="base_controller/cmd_vel"/> <!-- ns provides prefix -->
 
+  <arg name="social" default="true"/>
 
   <!-- AMCL Node -->
   <node name="amcl" pkg="amcl" type="amcl" output="screen">
@@ -37,27 +38,41 @@
     
     <remap from="cmd_vel" to="$(arg cmd_vel)"/>
     <remap from="map" to="/map"/>
-    
-    <rosparam file="$(find gopher_navigation)/config/costmap_common_params.yaml" 
-      command="load" ns="global_costmap" subst_value="true"/>
-    <rosparam file="$(find gopher_navigation)/config/costmap_common_params.yaml"
-      command="load" ns="local_costmap" subst_value="true"/>
-    <rosparam file="$(find gopher_navigation)/config/local_costmap_params.yaml" 
-      command="load" subst_value="true"/>
-    <rosparam file="$(find gopher_navigation)/config/global_costmap_params.yaml" 
-      command="load" subst_value="true"/>
 
     <param name="global_costmap/global_frame" value="map" />
     <param name="local_costmap/global_frame" value="map" />
     
-    <!-- <rosparam file="$(find gopher_navigation)/config/teb_local_planner_params.yaml" 
-      command="load"/> -->
-    <!-- <param name="base_global_planner" value="global_planner/GlobalPlanner" /> -->
-    <!-- <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" /> -->
+    <!-- Baseline Implementation -->
+    <rosparam file="$(find gopher_navigation)/config/teb_local_planner_params.yaml" 
+      command="load" unless="$(arg social)"/>
+    <param name="base_global_planner" value="global_planner/GlobalPlanner" unless="$(arg social)"/>
+    <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" unless="$(arg social)"/>
     
-    <rosparam file="$(find lattice_planner)/config/global_planner_params.yaml" command="load" />
-    <param name="TBPlanner/dynamic_layers_plugin" value="dynamic_social_costmap::SocialLayers" />
-    <rosparam file="$(find timed_path_follower)/config/local_planner_params.yaml" command="load" />
+    <rosparam file="$(find gopher_navigation)/config/baseline_costmap_common_params.yaml" 
+      command="load" ns="global_costmap" subst_value="true" unless="$(arg social)"/>
+    <rosparam file="$(find gopher_navigation)/config/baseline_costmap_common_params.yaml"
+      command="load" ns="local_costmap" subst_value="true" unless="$(arg social)"/>
+
+    <rosparam file="$(find gopher_navigation)/config/baseline_global_costmap_params.yaml" 
+      command="load" subst_value="true" unless="$(arg social)"/>
+    <rosparam file="$(find gopher_navigation)/config/baseline_local_costmap_params.yaml" 
+      command="load" subst_value="true" unless="$(arg social)"/>
+
+    <!-- Social Navigation Implementation -->
+    <rosparam file="$(find lattice_planner)/config/global_planner_params.yaml" command="load" if="$(arg social)"/>
+    <param name="TBPlanner/dynamic_layers_plugin" value="dynamic_social_costmap::SocialLayers" if="$(arg social)"/>
+    <rosparam file="$(find timed_path_follower)/config/local_planner_params.yaml" command="load" if="$(arg social)"/>
+
+    <rosparam file="$(find gopher_navigation)/config/social_costmap_common_params.yaml" 
+      command="load" ns="global_costmap" subst_value="true" if="$(arg social)"/>
+    <rosparam file="$(find gopher_navigation)/config/social_costmap_common_params.yaml"
+      command="load" ns="local_costmap" subst_value="true" if="$(arg social)"/>
+    
+    <rosparam file="$(find gopher_navigation)/config/social_global_costmap_params.yaml" 
+      command="load" subst_value="true" if="$(arg social)"/>
+    <rosparam file="$(find gopher_navigation)/config/social_local_costmap_params.yaml" 
+      command="load" subst_value="true" if="$(arg social)"/>
+    
     
     <param name="planner_frequency" value="15.0" />
     <param name="planner_patience" value="5.0" />
