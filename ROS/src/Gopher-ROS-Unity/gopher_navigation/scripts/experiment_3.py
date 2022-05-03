@@ -20,17 +20,19 @@ class Exp3:
         goal.pose.orientation = quat
         self.pose_pub.publish(goal)
         self.status = False
+        # print('Status in publish: ', self.status)
         print('Goal Published')
         rospy.sleep(0.2)
 
     def goal_status_cb(self, data):
         status_list = data.status_list
-        print('Callback called.')
+        # print('Callback called.')
         if len(status_list) != 0:
             status = status_list[-1].status
             if (status == 3):
-                print('Goal reached')
-                self.status == True
+                # print('Goal reached')
+                self.status = True
+                # print('Status in callback: ', self.status)
     
     def navigate(self):
         point1 = Point(-1.2590, -2.55271, 0.0)
@@ -39,7 +41,7 @@ class Exp3:
         print('Goal 1 Published')
 
         while not (self.status or rospy.is_shutdown()):
-            print('Status: ', self.status)
+            # print('Status: ', self.status)
             rospy.sleep(0.2)
 
         rospy.sleep(5.0)
