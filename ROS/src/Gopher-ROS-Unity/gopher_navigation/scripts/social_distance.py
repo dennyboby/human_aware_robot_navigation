@@ -21,6 +21,7 @@ class SocialDist:
             status = status_list[-1].status
             if (status == 3) and (self.status != 3):
                 print("Minimum Distance: ", self.min_dist)
+                self.min_dist = math.inf
             elif (status == 3) and (self.status == 3):
                 pass
             else:
