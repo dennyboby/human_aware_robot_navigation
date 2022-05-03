@@ -1,15 +1,18 @@
 <launch>
 
   <!-- Arguments -->
-  <arg name="tcp_ip" default="130.215.170.238"/>
+  <arg name="tcp_ip" default="192.168.1.87"/>
   <arg name="tcp_port" default="10000"/>
 
   <arg name="world_name" default="hospital_map"/>
   <arg name="robot_name" default="gopher_presence"/>
 
-  <arg name="pose_x" default="0"/>
-  <arg name="pose_y" default="6"/>
+  <arg name="pose_x" default="6.159779"/>
+  <arg name="pose_y" default="-14.04961"/>
   <arg name="pose_yaw" default="-1.57"/>
+
+  <arg name="evaluation" default="true"/>
+  <arg name="social" default="true"/>
 
   <!-- Connection -->
   <node name="server_endpoint" pkg="ros_tcp_endpoint" type="default_server_endpoint.py" 
@@ -39,9 +42,17 @@
     <param name="amcl/initial_pose_a" value="$(arg pose_yaw)" />
     <include file="$(find gopher_navigation)/launch/gopher_amcl.launch">
       <arg name="robot_name" value="$(arg robot_name)"/>
+      <arg name="social" value="$(arg social)"/>
     </include>
   </group>
 
+  <!--- Run constant velocity prediction node -->
+  <node name="constant_velocity_prediction" pkg="people_prediction" type="constant_velocity_prediction" />
+
+  <group if="$(eval evaluation == true)">
+    <node name="social_distance_node" pkg="gopher_navigation" type="social_distance.py" output="screen" />
+    <node name="path_length_node" pkg="gopher_navigation" type="path_length.py" output="screen" />
+  </group>
 
   <!-- Transform compressed image to raw image in order to view it in Rviz
   <node name="main_cam_republish" type="republish" pkg="image_transport" output="screen" 
@@ -53,7 +64,10 @@
 
 
   <!-- Start RViz -->
-  <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_rviz_config.rviz"/>
+  <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_config_social.rviz" if="$(arg social)"/>
+
+  <arg name="rviz_config" value="$(find gopher_unity_endpoint)/rviz/gopher_presence_config_baseline.rviz" unless="$(arg social)"/>
+
   <node name="rviz" pkg="rviz" type="rviz" args="-d $(arg rviz_config)"/> 
 
 </launch>

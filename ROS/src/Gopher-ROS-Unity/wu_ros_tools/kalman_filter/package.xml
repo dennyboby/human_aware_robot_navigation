@@ -1,0 +1,15 @@
+<package format="2">
+  <name>kalman_filter</name>
+  <version>0.2.6</version>
+  <description>Simple Kalman Filter in Python</description>
+  <author>David V. Lu!!</author>
+  <maintainer email="davidvlu@gmail.com">David V. Lu!!</maintainer>
+
+  <license>BSD</license>
+
+  <url type="website">http://ros.org/wiki/kalman_filter</url>
+  <buildtool_depend>catkin</buildtool_depend>
+  <depend>rospy</depend>
+  <test_depend>roslint</test_depend>
+
+</package>

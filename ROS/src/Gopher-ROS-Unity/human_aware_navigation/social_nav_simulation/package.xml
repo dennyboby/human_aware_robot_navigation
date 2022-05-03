@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<package>
+  <name>social_nav_simulation</name>
+  <version>0.0.0</version>
+  <description>
+     A package that contains models to simulate populated environments. 
+  </description>
+  <maintainer email="marinakollmitz@gmail.com">Marina Kollmitz</maintainer>
+  <license>BSD</license>
+
+  <author>Marina Kollmitz</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <!--run_depend>turtlebot3_gazebo</run_depend-->
+  <run_depend>gazebo_ros</run_depend>
+  <run_depend>robot_state_publisher</run_depend>
+
+  <export>
+  <!-- gazebo_ros_paths_plugin automatically adds these to
+       GAZEBO_PLUGIN_PATH and GAZEBO_MODEL_PATH when you do this export inside
+       the package.xml file. You can than use URIs of type model://my_package/stuff. -->
+   <gazebo_ros                                                                 
+      gazebo_plugin_path="${prefix}/lib"
+      gazebo_model_path="${prefix}/.." /> 
+</export>
+
+</package>
