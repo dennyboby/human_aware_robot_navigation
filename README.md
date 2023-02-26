@@ -14,7 +14,7 @@ PLEASE MAKE SURE YOU HAVE A STABLE INTERNET CONNECTION WHILE RUNNING THE SIMULAT
   - [4. Output](#4-output)
 
 ## 1. Introduction
-This repo contains the Unity simulation for hospital scenario provided by WPI HiRO Lab [Gopher-In-Unity-Simulation](https://github.com/hiro-wpi/Gopher-In-Unity-Simulation) and a gopher social robot that can navigate using the social navigation cues. The robot predicts the future positions of the moving human and generates a social costmap around those predictions. The global planner plans a path considering all the costs. More information about working and can be found [here](https://github.com/dennyboby/human_aware_robot_navigation/tree/master/docs/document).
+This repo contains the Unity simulation for hospital scenario provided by WPI HiRO Lab [Gopher-In-Unity-Simulation](https://github.com/hiro-wpi/Gopher-In-Unity-Simulation) and a gopher social robot that can navigate using the social navigation cues. The robot predicts the future positions of the moving human and generates a social costmap around those predictions. The global planner plans a path considering all the costs. More information about working can be found [here](https://github.com/dennyboby/human_aware_robot_navigation/tree/master/docs/document).
 
 ## 2. Setup
 In order to setup the repo follow the instruction in [SETUP.md](https://github.com/dennyboby/human_aware_robot_navigation/blob/master/SETUP.md).
